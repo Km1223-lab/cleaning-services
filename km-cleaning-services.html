@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KM Cleaning Services — Nairobi, Kenya</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0B3D2E">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="KM Cleaning">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAFAF7;
+    --bg-alt:#EAF1EC;
+    --deep:#0B3D2E;
+    --deep2:#12513C;
+    --gold:#C9A227;
+    --gold-soft:#E4C766;
+    --ink:#14201A;
+    --ink-soft:#4C5A52;
+    --white:#FFFFFF;
+    --line:rgba(11,61,46,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif; line-height:1.08; letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--deep2);
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:18px; height:2px;
+    background:var(--gold);
+    display:inline-block;
+  }
+  section{padding:96px 0;}
+  @media (max-width:720px){ section{padding:64px 0;} }
+  .hidden{ display:none !important; }
+
+  /* ===== Buttons ===== */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:15px 26px;
+    border-radius:3px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .15s ease, background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-gold{ background:var(--gold); color:var(--deep); }
+  .btn-gold:hover{ background:var(--gold-soft); }
+  .btn-outline{ border-color:rgba(255,255,255,0.35); color:var(--white); }
+  .btn-outline:hover{ border-color:var(--gold); color:var(--gold-soft); }
+  .btn-deep{ background:var(--deep); color:var(--white); }
+  .btn-deep:hover{ background:var(--deep2); }
+  .btn-ghost{ background:transparent; color:var(--deep); border-color:var(--line); }
+  .btn-ghost:hover{ background:var(--bg-alt); }
+
+  /* ===== Nav ===== */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(250,250,247,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:19px; }
+  .logo-mark{
+    width:36px; height:36px; border-radius:3px;
+    background:var(--deep);
+    color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500;
+    letter-spacing:0.02em;
+  }
+  .nav-links{ display:flex; gap:30px; align-items:center; }
+  .nav-links a{ font-size:14.5px; font-weight:500; color:var(--ink-soft); transition:color .2s; }
+  .nav-links a:hover{ color:var(--deep); }
+  .nav-cta{ display:flex; align-items:center; gap:20px; }
+  .menu-toggle{ display:none; background:none; border:none; cursor:pointer; }
+  @media (max-width:920px){
+    .nav-links{ display:none; }
+    .menu-toggle{ display:block; }
+  }
+
+  /* ===== Hero with signature squeegee-wipe reveal ===== */
+  .hero{
+    position:relative;
+    margin-top:0;
+    padding:170px 0 110px;
+    background:linear-gradient(165deg,var(--deep) 0%,#0E4736 55%,var(--deep2) 100%);
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:50px; align-items:center; position:relative; z-index:3;
+  }
+  @media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; } }
+
+  .hero .eyebrow{ color:var(--gold-soft); }
+  .hero .eyebrow::before{ background:var(--gold-soft); }
+  .hero h1{
+    color:var(--white);
+    font-size:clamp(38px,5.6vw,64px);
+    margin:18px 0 22px;
+  }
+  .hero h1 span{ color:var(--gold-soft); }
+  .hero p.lead{
+    color:rgba(255,255,255,0.78);
+    font-size:17.5px;
+    max-width:480px;
+    margin-bottom:34px;
+  }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+
+  .hero-stats{ display:flex; gap:34px; margin-top:56px; flex-wrap:wrap; }
+  .hero-stats .num{ font-family:'IBM Plex Mono',monospace; color:var(--gold-soft); font-size:26px; font-weight:500; }
+  .hero-stats .lbl{ color:rgba(255,255,255,0.6); font-size:13px; margin-top:2px; }
+
+  /* signature visual: swipe-clean panel */
+  .swipe-stage{
+    position:relative;
+    aspect-ratio:4/5;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 30px 70px rgba(0,0,0,0.35);
+  }
+  .swipe-clean-layer{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(201,162,39,0.35), transparent 55%),
+      linear-gradient(150deg,#F4F1E9,#E5EFE8 60%,#D8E7DC);
+  }
+  .swipe-clean-layer::after{
+    content:"CLEAN";
+    position:absolute; bottom:26px; right:28px;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px;
+    letter-spacing:0.18em; color:var(--deep);
+    opacity:0.55;
+  }
+  .swipe-dirty-layer{
+    position:absolute; inset:0;
+    background:
+      repeating-linear-gradient(115deg, rgba(20,32,26,0.16) 0 3px, transparent 3px 9px),
+      linear-gradient(150deg,#5c584a,#413f38 60%, #33342f);
+    animation: wipe-away 2.6s cubic-bezier(.77,0,.18,1) 0.4s forwards;
+  }
+  .swipe-dirty-layer::after{
+    content:"BEFORE";
+    position:absolute; top:26px; left:28px;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px;
+    letter-spacing:0.18em; color:rgba(255,255,255,0.55);
+  }
+  .squeegee-bar{
+    position:absolute; top:0; bottom:0; width:10px;
+    background:linear-gradient(90deg, transparent, var(--gold-soft) 45%, #fff 50%, var(--gold-soft) 55%, transparent);
+    box-shadow:0 0 26px rgba(228,199,102,0.85);
+    left:0;
+    animation: bar-move 2.6s cubic-bezier(.77,0,.18,1) 0.4s forwards;
+  }
+  @keyframes wipe-away{
+    from{ clip-path: inset(0 0 0 0); }
+    to{ clip-path: inset(0 0 0 100%); }
+  }
+  @keyframes bar-move{
+    from{ left:0%; }
+    to{ left:100%; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .swipe-dirty-layer, .squeegee-bar{ animation:none; }
+    .swipe-dirty-layer{ clip-path: inset(0 0 0 100%); }
+  }
+
+  /* ===== Services ===== */
+  .section-head{ max-width:600px; margin-bottom:52px; }
+  .section-head h2{ font-size:clamp(28px,3.6vw,40px); margin-top:14px; }
+  .section-head p{ color:var(--ink-soft); margin-top:14px; font-size:16px; }
+
+  .services-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  @media (max-width:860px){ .services-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .services-grid{ grid-template-columns:1fr; } }
+  .service-card{
+    background:var(--white);
+    padding:32px 28px;
+    transition:background .2s ease;
+  }
+  .service-card:hover{ background:var(--bg-alt); }
+  .check{
+    width:30px; height:30px; border-radius:50%;
+    background:var(--bg-alt);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:18px;
+  }
+  .service-card:hover .check{ background:var(--deep); border-color:var(--deep); }
+  .service-card:hover .check svg path{ stroke:var(--gold-soft); }
+  .check svg{ width:15px; height:15px; }
+  .check svg path{ stroke:var(--deep2); stroke-width:2.4; fill:none; stroke-linecap:round; stroke-linejoin:round; transition:stroke .2s; }
+  .service-card h3{ font-size:18px; margin-bottom:8px; }
+  .service-card p{ color:var(--ink-soft); font-size:14.5px; }
+
+  /* ===== Process ===== */
+  .process{ background:var(--deep); color:var(--white); border-radius:8px; padding:64px 44px; }
+  @media (max-width:720px){ .process{ padding:44px 22px; } }
+  .process .section-head p{ color:rgba(255,255,255,0.65); }
+  .process .section-head h2{ color:var(--white); }
+  .process .eyebrow{ color:var(--gold-soft); }
+  .process .eyebrow::before{ background:var(--gold-soft); }
+  .steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:30px; margin-top:12px; }
+  @media (max-width:860px){ .steps{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:520px){ .steps{ grid-template-columns:1fr; } }
+  .step .step-num{
+    font-family:'IBM Plex Mono',monospace; color:var(--gold-soft); font-size:14px;
+    border-bottom:1px solid rgba(255,255,255,0.2); padding-bottom:14px; margin-bottom:16px;
+  }
+  .step h4{ font-size:17px; margin-bottom:8px; }
+  .step p{ color:rgba(255,255,255,0.62); font-size:14px; }
+
+  /* ===== Areas ===== */
+  .areas-wrap{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:center; }
+  @media (max-width:860px){ .areas-wrap{ grid-template-columns:1fr; } }
+  .chip-cloud{ display:flex; flex-wrap:wrap; gap:10px; }
+  .chip{
+    padding:10px 16px; border:1px solid var(--line); border-radius:24px;
+    font-size:13.5px; font-weight:500; color:var(--deep2);
+    background:var(--white); cursor:pointer;
+  }
+  .chip.on{ background:var(--deep); color:var(--gold-soft); border-color:var(--deep); }
+
+  /* ===== Gallery ===== */
+  .gallery-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  @media (max-width:860px){ .gallery-grid{ grid-template-columns:1fr; } }
+  .compare-card{ display:flex; flex-direction:column; }
+  .compare-frame{
+    position:relative; aspect-ratio:4/3; border-radius:6px; overflow:hidden;
+    box-shadow:0 14px 34px rgba(11,61,46,0.14);
+  }
+  .compare-before,.compare-after{ position:absolute; inset:0; }
+  .compare-before{
+    background:
+      repeating-linear-gradient(115deg, rgba(20,32,26,0.18) 0 3px, transparent 3px 9px),
+      linear-gradient(150deg,#5c584a,#413f38 60%, #33342f);
+  }
+  .compare-before::after{
+    content:"BEFORE"; position:absolute; top:16px; left:18px;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:11.5px;
+    letter-spacing:0.16em; color:rgba(255,255,255,0.6);
+  }
+  .compare-after{
+    background:
+      radial-gradient(circle at 30% 20%, rgba(201,162,39,0.3), transparent 55%),
+      linear-gradient(150deg,#F4F1E9,#E5EFE8 60%,#D8E7DC);
+  }
+  .compare-after::after{
+    content:"AFTER"; position:absolute; top:16px; right:18px;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:11.5px;
+    letter-spacing:0.16em; color:var(--deep); opacity:0.65;
+  }
+  .compare-card:nth-child(2) .compare-after{ filter:hue-rotate(-12deg); }
+  .compare-card:nth-child(3) .compare-after{ filter:hue-rotate(18deg); }
+  .compare-slider{
+    position:absolute; bottom:14px; left:50%; transform:translateX(-50%);
+    width:85%; appearance:none; height:4px; border-radius:2px; background:rgba(255,255,255,0.55); outline:none; cursor:ew-resize; z-index:5;
+  }
+  .compare-slider::-webkit-slider-thumb{ appearance:none; width:18px; height:18px; border-radius:50%; background:var(--gold); border:2px solid var(--white); box-shadow:0 2px 6px rgba(0,0,0,0.3); cursor:ew-resize; }
+  .compare-slider::-moz-range-thumb{ width:18px; height:18px; border-radius:50%; background:var(--gold); border:2px solid var(--white); box-shadow:0 2px 6px rgba(0,0,0,0.3); cursor:ew-resize; border:none; }
+  .compare-card figcaption{ padding:12px 2px 0; font-size:13.5px; color:var(--ink-soft); }
+  .gallery-note{ font-size:13px; color:var(--ink-soft); margin-top:26px; font-style:italic; }
+
+  /* ===== Testimonials ===== */
+  .testi-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  @media (max-width:860px){ .testi-grid{ grid-template-columns:1fr; } }
+  .testi{
+    background:var(--white); border:1px solid var(--line); border-radius:6px; padding:30px;
+  }
+  .stars{ color:var(--gold); font-size:14px; letter-spacing:2px; margin-bottom:16px; }
+  .testi p.quote{ font-size:15px; color:var(--ink); margin-bottom:20px; }
+  .testi .who{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14.5px; }
+  .testi .role{ color:var(--ink-soft); font-size:13px; }
+
+  /* ===== Contact ===== */
+  .contact-wrap{ display:grid; grid-template-columns:1fr 1fr; gap:60px; }
+  @media (max-width:860px){ .contact-wrap{ grid-template-columns:1fr; } }
+  .info-row{ display:flex; gap:16px; padding:18px 0; border-bottom:1px solid var(--line); }
+  .info-row .ico{ width:38px; height:38px; border-radius:50%; background:var(--bg-alt); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px; }
+  .info-row h4{ font-size:15px; margin-bottom:3px; }
+  .info-row p{ color:var(--ink-soft); font-size:14px; }
+
+  form{ display:flex; flex-direction:column; gap:16px; }
+  .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:480px){ .form-row{ grid-template-columns:1fr; } }
+  label{ font-size:12.5px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px; display:block; }
+  input,select,textarea{
+    width:100%; padding:13px 14px; border:1px solid var(--line); border-radius:3px;
+    font-family:'Inter',sans-serif; font-size:14.5px; background:var(--white); color:var(--ink);
+  }
+  input:focus,select:focus,textarea:focus{ outline:2px solid var(--gold); outline-offset:1px; border-color:var(--gold); }
+  textarea{ resize:vertical; min-height:100px; }
+
+  /* ===== Footer ===== */
+  footer{ background:var(--deep); color:rgba(255,255,255,0.7); padding:56px 0 30px; }
+  .foot-grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px; padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,0.14); }
+  @media (max-width:720px){ .foot-grid{ grid-template-columns:1fr; } }
+  footer h4{ color:var(--white); font-family:'Space Grotesk',sans-serif; font-size:14.5px; margin-bottom:16px; }
+  footer ul li{ margin-bottom:10px; font-size:14px; }
+  footer ul li a:hover{ color:var(--gold-soft); }
+  .foot-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:24px; font-size:12.5px; flex-wrap:wrap; gap:10px; }
+
+  ::selection{ background:var(--gold-soft); color:var(--deep); }
+
+  /* ===== Chat assistant widget ===== */
+  #kmChat{ position:fixed; right:24px; bottom:24px; z-index:90; font-family:'Inter',sans-serif; }
+  #chatToggle{
+    width:58px; height:58px; border-radius:50%; background:var(--gold); border:none;
+    box-shadow:0 10px 26px rgba(11,61,46,0.35); cursor:pointer; font-size:24px;
+    display:flex; align-items:center; justify-content:center; transition:transform .2s;
+  }
+  #chatToggle:hover{ transform:scale(1.06); }
+  #chatPanel{
+    position:absolute; bottom:74px; right:0; width:368px; max-height:72vh; min-height:420px;
+    background:var(--white); border-radius:12px; box-shadow:0 24px 60px rgba(11,61,46,0.3);
+    display:flex; flex-direction:column; overflow:hidden;
+  }
+  @media (max-width:480px){
+    #chatPanel{ width:calc(100vw - 24px); right:-12px; }
+    #kmChat{ right:16px; bottom:16px; }
+  }
+  .chat-header{ background:var(--deep); color:var(--white); padding:14px 16px; display:flex; align-items:center; justify-content:space-between; }
+  .chat-header-title{ display:flex; align-items:center; gap:10px; }
+  .chat-title-main{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; }
+  .chat-title-sub{ font-size:11px; color:rgba(255,255,255,0.6); }
+  .chat-header-actions{ display:flex; align-items:center; gap:6px; }
+  .lang-pill{ padding:4px 9px; border-radius:12px; font-size:11px; border:1px solid rgba(255,255,255,0.32); color:rgba(255,255,255,0.75); background:transparent; cursor:pointer; font-family:'IBM Plex Mono',monospace; }
+  .lang-pill.active{ background:var(--gold); color:var(--deep); border-color:var(--gold); font-weight:600; }
+  #chatClose{ background:none; border:none; color:var(--white); font-size:15px; cursor:pointer; opacity:0.8; margin-left:2px; }
+  #chatClose:hover{ opacity:1; }
+  .chat-log{ flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; background:var(--bg-alt); }
+  .msg{ max-width:85%; padding:10px 13px; border-radius:12px; font-size:13.3px; line-height:1.45; white-space:pre-line; }
+  .msg.bot{ background:var(--white); border:1px solid var(--line); align-self:flex-start; border-bottom-left-radius:3px; }
+  .msg.user{ background:var(--deep); color:var(--white); align-self:flex-end; border-bottom-right-radius:3px; }
+  .msg.typing{ display:flex; gap:4px; align-items:center; padding:13px 15px; }
+  .typing-dot{ width:6px; height:6px; border-radius:50%; background:var(--ink-soft); opacity:0.4; animation:typing-bounce 1s infinite ease-in-out; }
+  .typing-dot:nth-child(2){ animation-delay:.15s; }
+  .typing-dot:nth-child(3){ animation-delay:.3s; }
+  @keyframes typing-bounce{ 0%,60%,100%{ transform:translateY(0); opacity:.4; } 30%{ transform:translateY(-4px); opacity:1; } }
+  .quick-replies{ display:flex; flex-wrap:wrap; gap:8px; padding:12px 16px; border-top:1px solid var(--line); }
+  .quick-reply-btn{ padding:8px 12px; border-radius:16px; border:1px solid var(--line); background:var(--white); font-size:12.3px; cursor:pointer; color:var(--deep2); font-weight:500; }
+  .quick-reply-btn:hover{ background:var(--deep); color:var(--gold-soft); border-color:var(--deep); }
+  .chat-input-row{ display:flex; gap:8px; padding:12px 16px; border-top:1px solid var(--line); }
+  .chat-text-input{ flex:1; padding:10px 13px; border:1px solid var(--line); border-radius:20px; font-size:13.3px; }
+  .chat-text-input:focus{ outline:2px solid var(--gold); outline-offset:1px; }
+  .chat-send-btn{ background:var(--deep); color:var(--white); border:none; width:38px; height:38px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:14px; }
+  .chat-send-btn:hover{ background:var(--deep2); }
+  .chat-done-actions{ padding:12px 16px 16px; display:flex; flex-direction:column; gap:8px; border-top:1px solid var(--line); }
+  .chat-done-actions .btn{ width:100%; padding:12px 16px; font-size:13.5px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="logo">
+        <span class="logo-mark">KM</span>
+        KM CLEANING SERVICES
+      </a>
+      <div class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#process">How it works</a>
+        <a href="#areas">Areas we serve</a>
+        <a href="#testimonials">Reviews</a>
+      </div>
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-deep" style="padding:11px 20px; font-size:14px;">Get a quote</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Nairobi &amp; environs · Licensed &amp; insured</span>
+      <h1>We clean it once,<br>we clean it <span>right</span>.</h1>
+      <p class="lead">KM Cleaning Services is a Kenyan-owned cleaning agency serving homes, offices and construction sites across Nairobi. Vetted crews, honest pricing, and a checklist we don't leave until it's ticked.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-gold">Request a free quote</a>
+        <a href="#services" class="btn btn-outline">See our services</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="num">500+</div><div class="lbl">Homes &amp; offices cleaned</div></div>
+        <div><div class="num">4.9/5</div><div class="lbl">Average client rating</div></div>
+        <div><div class="num">7</div><div class="lbl">Days a week availability</div></div>
+      </div>
+    </div>
+    <div class="swipe-stage">
+      <div class="swipe-clean-layer"></div>
+      <div class="swipe-dirty-layer"></div>
+      <div class="squeegee-bar"></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">What we do</span>
+      <h2>A service for every kind of mess</h2>
+      <p>From a weekly tidy-up to a full post-construction clear-out, our crews come equipped, trained, and ready to work off a checklist &mdash; not a guess.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+        <h3>Residential cleaning</h3>
+        <p>Routine or one-off cleaning for houses and apartments &mdash; kitchens, bathrooms, bedrooms and living areas, done to a standard you can set your watch by.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+        <h3>Office &amp; commercial cleaning</h3>
+        <p>Daily, weekly or after-hours cleaning for offices, retail spaces and business premises, with a crew that respects your working hours.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+        <h3>Deep cleaning</h3>
+        <p>The kind of clean that gets behind appliances, inside cabinets and along skirting boards &mdash; ideal for a seasonal reset.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+        <h3>Post-construction cleaning</h3>
+        <p>Dust, debris and paint splatter removal so a newly built or renovated space is ready to move into, not just swept.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+        <h3>Move-in / move-out cleaning</h3>
+        <p>A thorough clean timed around your move, so you hand over &mdash; or move into &mdash; a space that's genuinely spotless.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+        <h3>Carpet, sofa &amp; upholstery care</h3>
+        <p>Steam and shampoo cleaning for carpets, sofas and curtains that lifts stains and odours, not just surface dust.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+        <h3>Fumigation &amp; pest control</h3>
+        <p>Safe, targeted treatment for common household pests, carried out by trained technicians using approved products.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+        <h3>Window &amp; exterior cleaning</h3>
+        <p>Streak-free windows, balconies and exterior surfaces, including hard-to-reach spots in multi-storey buildings.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div>
+        <h3>Event &amp; after-party cleaning</h3>
+        <p>Fast turnaround cleaning after weddings, parties and corporate events, so the venue is handed back in top condition.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Our work</span>
+      <h2>See the difference — drag to compare</h2>
+      <p>Real job photos are coming soon. For now, drag each slider to see the kind of transformation our crews deliver, then swap these placeholders for your own before/after shots.</p>
+    </div>
+    <div class="gallery-grid">
+      <figure class="compare-card">
+        <div class="compare-frame">
+          <div class="compare-before"></div>
+          <div class="compare-after" style="clip-path:inset(0 50% 0 0)"></div>
+          <input type="range" min="0" max="100" value="50" class="compare-slider" aria-label="Drag to compare before and after">
+        </div>
+        <figcaption>Kitchen deep clean — Kilimani</figcaption>
+      </figure>
+      <figure class="compare-card">
+        <div class="compare-frame">
+          <div class="compare-before"></div>
+          <div class="compare-after" style="clip-path:inset(0 50% 0 0)"></div>
+          <input type="range" min="0" max="100" value="50" class="compare-slider" aria-label="Drag to compare before and after">
+        </div>
+        <figcaption>Living room reset — Lavington</figcaption>
+      </figure>
+      <figure class="compare-card">
+        <div class="compare-frame">
+          <div class="compare-before"></div>
+          <div class="compare-after" style="clip-path:inset(0 50% 0 0)"></div>
+          <input type="range" min="0" max="100" value="50" class="compare-slider" aria-label="Drag to compare before and after">
+        </div>
+        <figcaption>Office turnover — Westlands</figcaption>
+      </figure>
+    </div>
+    <p class="gallery-note">Placeholder visuals shown above — replace the .compare-before / .compare-after backgrounds in the code with your own photos whenever you have them.</p>
+  </div>
+</section>
+
+<section id="process" style="padding-top:0;">
+  <div class="wrap">
+    <div class="process">
+      <div class="section-head" style="margin-bottom:44px;">
+        <span class="eyebrow">How it works</span>
+        <h2>Four steps to a cleaner space</h2>
+        <p>No call-centre runaround. You speak to a real coordinator from the first message to the final walkthrough.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h4>Request a quote</h4>
+          <p>Tell us the space, the service and a convenient date. We reply same day with a clear, itemised quote.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h4>We schedule &amp; prep</h4>
+          <p>We assign a vetted crew, confirm the checklist for your job type, and lock in the time slot with you.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h4>Our team cleans</h4>
+          <p>The crew arrives in KM uniform with their own equipment and works through the agreed checklist, room by room.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h4>Walkthrough &amp; feedback</h4>
+          <p>We walk the space with you before we leave. Anything not up to standard gets fixed on the spot.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="areas">
+  <div class="wrap areas-wrap">
+    <div>
+      <span class="eyebrow">Coverage</span>
+      <h2 style="font-size:clamp(26px,3.4vw,36px); margin-top:14px;">Serving Nairobi, estate by estate</h2>
+      <p style="color:var(--ink-soft); margin-top:16px; font-size:15.5px;">Our crews are based across the city so we can usually get to you within 24&ndash;48 hours. Don't see your area listed &mdash; ask us anyway, we're expanding every quarter.</p>
+    </div>
+    <div class="chip-cloud">
+      <span class="chip on">Westlands</span>
+      <span class="chip">Kilimani</span>
+      <span class="chip on">Karen</span>
+      <span class="chip">Lavington</span>
+      <span class="chip">Runda</span>
+      <span class="chip on">Kileleshwa</span>
+      <span class="chip">CBD</span>
+      <span class="chip">South B &amp; South C</span>
+      <span class="chip on">Langata</span>
+      <span class="chip">Ruaka</span>
+      <span class="chip">Kiambu Road</span>
+      <span class="chip">Syokimau</span>
+      <span class="chip">Thika Road</span>
+      <span class="chip">Ngong Road</span>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Client feedback</span>
+      <h2>Trusted by homes and businesses</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Our office in Westlands gets cleaned every Monday and Thursday without fail. The team is punctual and thorough, and billing has never once been a hassle."</p>
+        <div class="who">Faith N.</div>
+        <div class="role">Office Manager, Westlands</div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Booked a post-construction clean after finishing our house in Ruaka. The crew handled dust, paint marks and even the window tracks. Moved in the next day."</p>
+        <div class="who">Brian K.</div>
+        <div class="role">Homeowner, Ruaka</div>
+      </div>
+      <div class="testi">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"We use KM for our Airbnb turnovers. Consistent quality every single time, and they're flexible with short-notice bookings between guests."</p>
+        <div class="who">Amina H.</div>
+        <div class="role">Short-let Property Owner, Kilimani</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-wrap">
+    <div>
+      <span class="eyebrow">Get in touch</span>
+      <h2 style="font-size:clamp(26px,3.4vw,36px); margin-top:14px; margin-bottom:18px;">Get a free, no-obligation quote</h2>
+      <p style="color:var(--ink-soft); font-size:15.5px; margin-bottom:10px;">Reach us directly, or fill in the form and it'll open a pre-filled WhatsApp message to our team.</p>
+
+      <div class="info-row">
+        <div class="ico">📞</div>
+        <div><h4>Call or WhatsApp</h4><p>+254 7XX XXX XXX</p></div>
+      </div>
+      <div class="info-row">
+        <div class="ico">✉️</div>
+        <div><h4>Email</h4><p>info@kmcleaningservices.co.ke</p></div>
+      </div>
+      <div class="info-row">
+        <div class="ico">📍</div>
+        <div><h4>Based in</h4><p>Nairobi, Kenya — serving the greater metro area</p></div>
+      </div>
+      <div class="info-row" style="border-bottom:none;">
+        <div class="ico">🕒</div>
+        <div><h4>Working hours</h4><p>Mon &ndash; Sat, 7:00am &ndash; 7:00pm · Sunday by appointment</p></div>
+      </div>
+    </div>
+
+    <form id="quoteForm" onsubmit="sendQuoteRequest(event)">
+      <div class="form-row">
+        <div>
+          <label for="fname">Full name</label>
+          <input id="fname" type="text" placeholder="Jane Wanjiru" required>
+        </div>
+        <div>
+          <label for="fphone">Phone number</label>
+          <input id="fphone" type="tel" placeholder="07XX XXX XXX" required>
+        </div>
+      </div>
+      <div>
+        <label for="fservice">Service needed</label>
+        <select id="fservice">
+          <option>Residential cleaning</option>
+          <option>Office / commercial cleaning</option>
+          <option>Deep cleaning</option>
+          <option>Post-construction cleaning</option>
+          <option>Move-in / move-out cleaning</option>
+          <option>Carpet, sofa &amp; upholstery care</option>
+          <option>Fumigation &amp; pest control</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="farea">Location / estate</label>
+          <input id="farea" type="text" placeholder="e.g. Kilimani, Nairobi">
+        </div>
+        <div>
+          <label for="fdate">Preferred date</label>
+          <input id="fdate" type="text" placeholder="e.g. this Saturday">
+        </div>
+      </div>
+      <div>
+        <label for="fmsg">Tell us about the job</label>
+        <textarea id="fmsg" placeholder="Size of space, preferred date, anything else we should know..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-gold" style="align-self:flex-start;">Send request via WhatsApp</button>
+      <p class="form-status hidden" style="font-size:13.5px; color:var(--deep2); margin-top:-4px;">Opening WhatsApp with your request pre-filled — just hit send on your end.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:var(--white); margin-bottom:14px;">
+          <span class="logo-mark">KM</span>
+          KM CLEANING SERVICES
+        </div>
+        <p style="font-size:14px; max-width:320px;">A Kenyan-owned cleaning agency bringing trained, vetted crews to homes and businesses across Nairobi — checklist in hand, every time.</p>
+      </div>
+      <div>
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#process">How it works</a></li>
+          <li><a href="#areas">Areas we serve</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li>+254 7XX XXX XXX</li>
+          <li>info@kmcleaningservices.co.ke</li>
+          <li>Nairobi, Kenya</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 KM Cleaning Services. All rights reserved.</span>
+      <span>Licensed &amp; insured cleaning agency, Nairobi, Kenya</span>
+    </div>
+  </div>
+</footer>
+
+<div id="kmChat">
+  <button id="chatToggle" aria-label="Open chat assistant">💬</button>
+  <div id="chatPanel" class="hidden">
+    <div class="chat-header">
+      <div class="chat-header-title">
+        <span class="logo-mark" style="width:30px;height:30px;font-size:11px;">KM</span>
+        <div>
+          <div class="chat-title-main">KM Assistant</div>
+          <div class="chat-title-sub" id="chatSubtitle">AI-powered · online now</div>
+        </div>
+      </div>
+      <div class="chat-header-actions">
+        <button class="lang-pill" id="langEn">EN</button>
+        <button class="lang-pill" id="langSw">SW</button>
+        <button id="chatClose" aria-label="Close chat">✕</button>
+      </div>
+    </div>
+    <div id="chatLog" class="chat-log"></div>
+    <div id="chatInputArea"></div>
+  </div>
+</div>
+
+<script>
+  // ---- Gallery compare sliders ----
+  document.querySelectorAll('.compare-slider').forEach(slider=>{
+    const frame = slider.closest('.compare-frame');
+    const after = frame.querySelector('.compare-after');
+    const update = ()=>{ after.style.clipPath = `inset(0 ${100 - slider.value}% 0 0)`; };
+    slider.addEventListener('input', update);
+    update();
+  });
+
+  // ---- Areas chips ----
+  document.querySelectorAll('.chip').forEach(c=>{
+    c.addEventListener('click',()=>c.classList.toggle('on'));
+  });
+
+  // ---- Quote form -> WhatsApp ----
+  const BUSINESS_PHONE = "254700000000"; // TODO: replace with KM Cleaning Services' real WhatsApp number, format 2547XXXXXXXX
+
+  async function postBooking(fields, source){
+    try{
+      await fetch(`${WORKER_URL}/bookings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...fields, source })
+      });
+    }catch(e){
+      // Best-effort only — WhatsApp remains the reliable path even if this fails.
+    }
+  }
+
+  function sendQuoteRequest(e){
+    e.preventDefault();
+    const name = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('fphone').value.trim();
+    const service = document.getElementById('fservice').value;
+    const area = document.getElementById('farea').value.trim();
+    const date = document.getElementById('fdate').value.trim() || "Not specified";
+    const msg = document.getElementById('fmsg').value.trim();
+    postBooking({ service, area, date, name, phone }, "quote_form");
+    const lines = [
+      "Hello KM Cleaning Services! I'd like to request a quote.",
+      "",
+      `Name: ${name}`,
+      `Phone: ${phone}`,
+      `Service: ${service}`,
+      `Location: ${area}`,
+      `Preferred date: ${date}`,
+      msg ? `Details: ${msg}` : null
+    ].filter(Boolean).join("\n");
+    window.open(`https://wa.me/${BUSINESS_PHONE}?text=${encodeURIComponent(lines)}`, '_blank');
+    document.querySelector('.form-status').classList.remove('hidden');
+  }
+
+  // ---- Real AI bilingual concierge, powered by Claude ----
+  const chatLog = document.getElementById('chatLog');
+  const chatInputArea = document.getElementById('chatInputArea');
+
+  // TODO: replace with your deployed Cloudflare Worker URL (no trailing slash), e.g.
+  // "https://km-cleaning-chat-proxy.yourname.workers.dev"
+  // Used for both the AI chat (WORKER_URL + "/chat") and saving booking
+  // requests for the admin dashboard (WORKER_URL + "/bookings").
+  const WORKER_URL = "https://km-cleaning-chat-proxy.YOUR-SUBDOMAIN.workers.dev";
+
+  const SYSTEM_PROMPT = `You are the bilingual virtual assistant for KM Cleaning Services, a cleaning agency based in Nairobi, Kenya.
+
+Services offered: residential cleaning, office/commercial cleaning, deep cleaning, post-construction cleaning, move-in/move-out cleaning, carpet & upholstery care, fumigation & pest control, window & exterior cleaning, event/after-party cleaning.
+Areas served: Nairobi and surrounding estates (Westlands, Kilimani, Karen, Lavington, Runda, Kileleshwa, CBD, South B/C, Langata, Ruaka, Kiambu Road, Syokimau, Thika Road, Ngong Road) and beyond on request.
+Working hours: Mon-Sat 7am-7pm, Sunday by appointment.
+
+Reply in whichever language the customer is using -- English or Kiswahili -- and switch naturally if they switch. Be warm, brief, and professional; keep replies under about 80 words.
+
+Your goal is to help the customer book a service by naturally collecting five things over the course of the conversation: service type, area/location, preferred date, their name, and phone number. Ask about one or two of these at a time -- do not interrogate in one message. Answer any general questions about services, pricing approach, or coverage helpfully along the way.
+
+Once you have gathered all five AND the customer has confirmed the summary is correct, append on a new line, EXACTLY once, a hidden data block in this precise format (the app hides this from the user, so it must be machine-parseable, valid JSON, and use exactly these five keys):
+<>{"service":"...","area":"...","date":"...","name":"...","phone":"..."}<>
+Never include that block before you truly have all five confirmed details. Never fabricate details the customer has not given you.`;
+
+  let chatMessages = [];
+  let bookingResult = null;
+
+  function addBubble(container, type, text){
+    const el = document.createElement('div');
+    el.className = 'msg ' + type;
+    el.innerText = text;
+    container.appendChild(el);
+    return el;
+  }
+
+  function showTyping(show){
+    let typ = chatLog.querySelector('.typing');
+    if(show){
+      if(!typ){
+        typ = document.createElement('div');
+        typ.className = 'msg bot typing';
+        typ.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+        chatLog.appendChild(typ);
+      }
+    } else if(typ){ typ.remove(); }
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
+
+  function renderWhatsAppAction(fields){
+    const wrap = document.createElement('div');
+    wrap.className = 'chat-done-actions';
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-gold';
+    btn.type = 'button';
+    btn.innerText = 'Send to our team on WhatsApp';
+    btn.onclick = ()=>{
+      const text = `New booking request from KM Assistant:\n\nService: ${fields.service}\nLocation: ${fields.area}\nDate: ${fields.date}\nName: ${fields.name}\nPhone: ${fields.phone}`;
+      window.open(`https://wa.me/${BUSINESS_PHONE}?text=${encodeURIComponent(text)}`, '_blank');
+    };
+    wrap.appendChild(btn);
+    chatInputArea.appendChild(wrap);
+  }
+
+  async function callClaude(){
+    showTyping(true);
+    try{
+      const response = await fetch(`${WORKER_URL}/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system: SYSTEM_PROMPT,
+          messages: chatMessages
+        })
+      });
+      const data = await response.json();
+      const raw = (data.content || []).map(b => b.type === 'text' ? b.text : '').join('');
+      showTyping(false);
+
+      let display = raw;
+      const match = raw.match(/<>([\s\S]*?)<>/);
+      if(match){
+        display = raw.replace(match[0], '').trim();
+        try{
+          bookingResult = JSON.parse(match[1]);
+          postBooking(bookingResult, "ai_chat");
+        }catch(e){ /* ignore malformed block */ }
+      }
+
+      chatMessages.push({ role:'assistant', content: raw });
+      addBubble(chatLog, 'bot', display || "Asante! Thank you!");
+      chatLog.scrollTop = chatLog.scrollHeight;
+      renderInput();
+    }catch(err){
+      showTyping(false);
+      addBubble(chatLog, 'bot', "Samahani, kuna hitilafu ya mtandao. / Sorry, I'm having trouble connecting right now. Please WhatsApp us directly using the details below.");
+      chatLog.scrollTop = chatLog.scrollHeight;
+      renderInput();
+    }
+  }
+
+  function sendUserMessage(text){
+    if(!text.trim()) return;
+    addBubble(chatLog, 'user', text);
+    chatLog.scrollTop = chatLog.scrollHeight;
+    chatMessages.push({ role:'user', content: text });
+    callClaude();
+  }
+
+  function renderInput(){
+    chatInputArea.innerHTML = '';
+    if(bookingResult){
+      renderWhatsAppAction(bookingResult);
+    }
+    const row = document.createElement('div');
+    row.className = 'chat-input-row';
+    const input = document.createElement('input');
+    input.className = 'chat-text-input';
+    input.type = 'text';
+    input.placeholder = 'Type in English or Kiswahili...';
+    const sendBtn = document.createElement('button');
+    sendBtn.className = 'chat-send-btn';
+    sendBtn.type = 'button';
+    sendBtn.innerText = '\u27A4';
+    const submit = ()=>{
+      const val = input.value.trim();
+      if(!val) return;
+      input.value = '';
+      sendUserMessage(val);
+    };
+    sendBtn.onclick = submit;
+    input.addEventListener('keydown', ev=>{ if(ev.key === 'Enter'){ submit(); } });
+    row.appendChild(input);
+    row.appendChild(sendBtn);
+    chatInputArea.appendChild(row);
+    input.focus();
+  }
+
+  function quickLang(msg){
+    sendUserMessage(msg);
+  }
+
+  function initChat(){
+    chatLog.innerHTML = '';
+    chatMessages = [];
+    bookingResult = null;
+    addBubble(chatLog, 'bot', "Habari! \uD83D\uDC4B I'm the KM Cleaning Assistant, powered by AI. Ask me anything about our services, or tell me what you need cleaned and I'll help you book it \u2014 in English or Kiswahili.");
+    renderInput();
+  }
+
+  document.getElementById('langEn').innerText = 'EN';
+  document.getElementById('langSw').innerText = 'SW';
+  document.getElementById('langEn').onclick = ()=>quickLang('Please continue in English from now on.');
+  document.getElementById('langSw').onclick = ()=>quickLang('Tafadhali endelea kwa Kiswahili kuanzia sasa.');
+  document.getElementById('chatToggle').onclick = ()=>{
+    document.getElementById('chatPanel').classList.remove('hidden');
+    document.getElementById('chatToggle').classList.add('hidden');
+  };
+  document.getElementById('chatClose').onclick = ()=>{
+    document.getElementById('chatPanel').classList.add('hidden');
+    document.getElementById('chatToggle').classList.remove('hidden');
+  };
+
+  initChat();
+
+  // ---- PWA: register service worker so the site is installable as an app ----
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+    });
+  }
+</script>
+</body>
+</html>
