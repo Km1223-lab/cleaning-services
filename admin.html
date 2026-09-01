@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KM Cleaning Services — Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAFAF7;
+    --bg-alt:#EAF1EC;
+    --deep:#0B3D2E;
+    --deep2:#12513C;
+    --gold:#C9A227;
+    --gold-soft:#E4C766;
+    --ink:#14201A;
+    --ink-soft:#4C5A52;
+    --white:#FFFFFF;
+    --line:rgba(11,61,46,0.14);
+    --red:#B23A3A;
+    --blue:#2B5F8A;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:'Space Grotesk',sans-serif; letter-spacing:-0.01em; }
+  button,input,select{ font-family:'Inter',sans-serif; }
+  .hidden{ display:none !important; }
+
+  #loginScreen{
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+    background:linear-gradient(165deg,var(--deep) 0%,#0E4736 55%,var(--deep2) 100%);
+  }
+  .login-card{
+    background:var(--white); border-radius:10px; padding:40px 34px; width:100%; max-width:380px;
+    box-shadow:0 30px 70px rgba(0,0,0,0.3);
+  }
+  .login-logo{ display:flex; align-items:center; gap:10px; margin-bottom:28px; }
+  .logo-mark{
+    width:38px; height:38px; border-radius:3px; background:var(--deep); color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:500;
+  }
+  .login-logo-text{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; }
+  .login-card h2{ font-size:20px; margin-bottom:6px; }
+  .login-card p.sub{ color:var(--ink-soft); font-size:13.5px; margin-bottom:26px; }
+  label{ font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft); margin-bottom:6px; display:block; }
+  input[type="text"], input[type="password"]{
+    width:100%; padding:12px 13px; border:1px solid var(--line); border-radius:4px;
+    font-size:14px; margin-bottom:18px; background:var(--bg);
+  }
+  input:focus{ outline:2px solid var(--gold); outline-offset:1px; border-color:var(--gold); }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    padding:13px 22px; border-radius:4px; font-family:'Space Grotesk',sans-serif; font-weight:600;
+    font-size:14px; cursor:pointer; border:1px solid transparent; transition:all .15s ease;
+  }
+  .btn-gold{ background:var(--gold); color:var(--deep); width:100%; }
+  .btn-gold:hover{ background:var(--gold-soft); }
+  .btn-gold:disabled{ opacity:0.6; cursor:default; }
+  .login-error{
+    background:rgba(178,58,58,0.08); border:1px solid rgba(178,58,58,0.25); color:var(--red);
+    font-size:13px; padding:10px 12px; border-radius:4px; margin-bottom:16px;
+  }
+  .login-note{ font-size:12px; color:var(--ink-soft); margin-top:18px; line-height:1.5; }
+
+  #dashboard{ min-height:100vh; }
+  .topbar{
+    background:var(--deep); color:var(--white); padding:16px 28px;
+    display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:10;
+  }
+  .topbar-left{ display:flex; align-items:center; gap:12px; }
+  .topbar-title{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; }
+  .topbar-actions{ display:flex; gap:10px; align-items:center; }
+  .icon-btn{
+    background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); color:var(--white);
+    border-radius:4px; padding:8px 14px; font-size:13px; cursor:pointer; font-family:'Inter',sans-serif;
+  }
+  .icon-btn:hover{ background:rgba(255,255,255,0.18); }
+
+  .content{ max-width:1180px; margin:0 auto; padding:28px; }
+
+  .stats-row{ display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-bottom:28px; }
+  @media (max-width:900px){ .stats-row{ grid-template-columns:repeat(2,1fr); } }
+  .stat-card{ background:var(--white); border:1px solid var(--line); border-radius:8px; padding:18px 20px; }
+  .stat-num{ font-family:'IBM Plex Mono',monospace; font-size:26px; color:var(--deep); }
+  .stat-lbl{ font-size:12.5px; color:var(--ink-soft); margin-top:4px; }
+
+  .toolbar{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:18px; }
+  .tabs{ display:flex; gap:6px; flex-wrap:wrap; }
+  .tab-btn{
+    padding:9px 16px; border-radius:20px; border:1px solid var(--line); background:var(--white);
+    font-size:13px; font-weight:500; cursor:pointer; color:var(--ink-soft);
+  }
+  .tab-btn.active{ background:var(--deep); color:var(--gold-soft); border-color:var(--deep); }
+  .search-input{
+    flex:1; min-width:200px; padding:10px 14px; border:1px solid var(--line); border-radius:20px;
+    font-size:13.5px; background:var(--white);
+  }
+
+  .table-wrap{ background:var(--white); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  table{ width:100%; border-collapse:collapse; font-size:13.5px; }
+  thead th{
+    text-align:left; padding:12px 16px; background:var(--bg-alt); color:var(--ink-soft);
+    font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; font-weight:600;
+    border-bottom:1px solid var(--line);
+  }
+  tbody td{ padding:14px 16px; border-bottom:1px solid var(--line); vertical-align:top; }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr:hover{ background:var(--bg-alt); }
+  .cell-name{ font-weight:600; }
+  .cell-sub{ color:var(--ink-soft); font-size:12px; margin-top:2px; }
+  .badge{ display:inline-block; padding:4px 10px; border-radius:12px; font-size:11.5px; font-weight:600; }
+  .badge-new{ background:rgba(201,162,39,0.15); color:#8a6d1a; }
+  .badge-contacted{ background:rgba(43,95,138,0.12); color:var(--blue); }
+  .badge-scheduled{ background:rgba(11,61,46,0.12); color:var(--deep); }
+  .badge-completed{ background:rgba(76,90,82,0.12); color:var(--ink-soft); }
+  .badge-cancelled{ background:rgba(178,58,58,0.1); color:var(--red); }
+  .badge-source{ background:var(--bg-alt); color:var(--ink-soft); font-size:11px; padding:3px 8px; border-radius:10px; }
+  select.status-select{
+    padding:7px 10px; border-radius:4px; border:1px solid var(--line); font-size:12.5px; background:var(--white);
+  }
+  .row-actions{ display:flex; gap:8px; align-items:center; }
+  .wa-link-btn{
+    background:none; border:1px solid var(--line); border-radius:4px; padding:6px 10px;
+    font-size:12px; cursor:pointer; color:var(--deep2);
+  }
+  .wa-link-btn:hover{ background:var(--bg-alt); }
+
+  .empty-state{ padding:60px 20px; text-align:center; color:var(--ink-soft); }
+  .empty-state h3{ color:var(--ink); margin-bottom:8px; font-size:16px; }
+  .loading-state{ padding:60px 20px; text-align:center; color:var(--ink-soft); font-size:13.5px; }
+  .error-banner{
+    background:rgba(178,58,58,0.08); border:1px solid rgba(178,58,58,0.25); color:var(--red);
+    padding:12px 16px; border-radius:6px; margin-bottom:18px; font-size:13.5px;
+  }
+</style>
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <span class="logo-mark">KM</span>
+      <span class="login-logo-text">KM CLEANING SERVICES</span>
+    </div>
+    <h2>Admin Dashboard</h2>
+    <p class="sub">Sign in to view and manage incoming booking requests.</p>
+    <div id="loginError" class="login-error hidden"></div>
+
+    <label for="workerUrlInput">Worker URL</label>
+    <input id="workerUrlInput" type="text" placeholder="https://km-cleaning-chat-proxy.yourname.workers.dev">
+
+    <label for="adminKeyInput">Admin key</label>
+    <input id="adminKeyInput" type="password" placeholder="Your admin key">
+
+    <button id="loginBtn" class="btn btn-gold">Sign in</button>
+    <p class="login-note">This key is only kept in this browser tab's memory — it is not saved anywhere, so you'll need to sign in again if you refresh the page. Set the same value as the <code>ADMIN_KEY</code> secret on your Cloudflare Worker.</p>
+  </div>
+</div>
+
+<div id="dashboard" class="hidden">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="logo-mark" style="width:32px;height:32px;font-size:11px;">KM</span>
+      <span class="topbar-title">Booking Requests</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="refreshBtn">Refresh</button>
+      <button class="icon-btn" id="logoutBtn">Sign out</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <div id="errorBanner" class="error-banner hidden"></div>
+
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-num" id="statTotal">0</div><div class="stat-lbl">Total requests</div></div>
+      <div class="stat-card"><div class="stat-num" id="statNew">0</div><div class="stat-lbl">New</div></div>
+      <div class="stat-card"><div class="stat-num" id="statContacted">0</div><div class="stat-lbl">Contacted</div></div>
+      <div class="stat-card"><div class="stat-num" id="statScheduled">0</div><div class="stat-lbl">Scheduled</div></div>
+      <div class="stat-card"><div class="stat-num" id="statCompleted">0</div><div class="stat-lbl">Completed</div></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="tabs" id="statusTabs">
+        <button class="tab-btn active" data-status="all">All</button>
+        <button class="tab-btn" data-status="new">New</button>
+        <button class="tab-btn" data-status="contacted">Contacted</button>
+        <button class="tab-btn" data-status="scheduled">Scheduled</button>
+        <button class="tab-btn" data-status="completed">Completed</button>
+        <button class="tab-btn" data-status="cancelled">Cancelled</button>
+      </div>
+      <input id="searchInput" class="search-input" type="text" placeholder="Search by name, phone or area...">
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Received</th>
+            <th>Customer</th>
+            <th>Service</th>
+            <th>Location</th>
+            <th>Preferred date</th>
+            <th>Source</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="bookingsBody"></tbody>
+      </table>
+      <div id="loadingState" class="loading-state hidden">Loading booking requests…</div>
+      <div id="emptyState" class="empty-state hidden">
+        <h3>No requests here yet</h3>
+        <p>New bookings from your website's quote form and AI assistant will show up automatically.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let workerUrl = "";
+  let adminKey = "";
+  let bookings = [];
+  let activeStatus = "all";
+  let searchTerm = "";
+
+  const loginScreen = document.getElementById('loginScreen');
+  const dashboard = document.getElementById('dashboard');
+  const loginError = document.getElementById('loginError');
+  const errorBanner = document.getElementById('errorBanner');
+  const bookingsBody = document.getElementById('bookingsBody');
+  const loadingState = document.getElementById('loadingState');
+  const emptyState = document.getElementById('emptyState');
+
+  function showLoginError(msg){
+    loginError.innerText = msg;
+    loginError.classList.remove('hidden');
+  }
+
+  async function attemptLogin(){
+    const urlInput = document.getElementById('workerUrlInput').value.trim().replace(/\/+$/, '');
+    const keyInput = document.getElementById('adminKeyInput').value.trim();
+    if(!urlInput || !keyInput){
+      showLoginError('Please fill in both the Worker URL and the admin key.');
+      return;
+    }
+    const btn = document.getElementById('loginBtn');
+    btn.disabled = true;
+    btn.innerText = 'Signing in…';
+    loginError.classList.add('hidden');
+
+    try{
+      const res = await fetch(`${urlInput}/bookings`, { headers: { 'x-admin-key': keyInput } });
+      if(res.status === 401){
+        showLoginError('That admin key was rejected. Double-check it matches the ADMIN_KEY secret on your Worker.');
+        btn.disabled = false; btn.innerText = 'Sign in';
+        return;
+      }
+      if(!res.ok){
+        showLoginError(`The Worker responded with an error (status ${res.status}). Check the Worker URL and that it's deployed.`);
+        btn.disabled = false; btn.innerText = 'Sign in';
+        return;
+      }
+      const data = await res.json();
+      workerUrl = urlInput;
+      adminKey = keyInput;
+      bookings = data.bookings || [];
+      loginScreen.classList.add('hidden');
+      dashboard.classList.remove('hidden');
+      renderAll();
+    }catch(err){
+      showLoginError("Couldn't reach that Worker URL. Check it's correct, deployed, and that this page's origin is in the Worker's ALLOWED_ORIGINS list.");
+      btn.disabled = false; btn.innerText = 'Sign in';
+    }
+  }
+
+  document.getElementById('loginBtn').onclick = attemptLogin;
+  document.getElementById('adminKeyInput').addEventListener('keydown', e=>{ if(e.key === 'Enter') attemptLogin(); });
+
+  document.getElementById('logoutBtn').onclick = ()=>{
+    workerUrl = ""; adminKey = ""; bookings = [];
+    dashboard.classList.add('hidden');
+    loginScreen.classList.remove('hidden');
+    document.getElementById('adminKeyInput').value = '';
+  };
+
+  async function fetchBookings(){
+    loadingState.classList.remove('hidden');
+    errorBanner.classList.add('hidden');
+    try{
+      const res = await fetch(`${workerUrl}/bookings`, { headers: { 'x-admin-key': adminKey } });
+      if(!res.ok) throw new Error('status ' + res.status);
+      const data = await res.json();
+      bookings = data.bookings || [];
+      loadingState.classList.add('hidden');
+      renderAll();
+    }catch(err){
+      loadingState.classList.add('hidden');
+      errorBanner.innerText = "Couldn't refresh booking requests. Please try again.";
+      errorBanner.classList.remove('hidden');
+    }
+  }
+
+  document.getElementById('refreshBtn').onclick = fetchBookings;
+
+  document.getElementById('statusTabs').addEventListener('click', e=>{
+    if(e.target.classList.contains('tab-btn')){
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      e.target.classList.add('active');
+      activeStatus = e.target.dataset.status;
+      renderTable();
+    }
+  });
+
+  document.getElementById('searchInput').addEventListener('input', e=>{
+    searchTerm = e.target.value.trim().toLowerCase();
+    renderTable();
+  });
+
+  function renderAll(){
+    renderStats();
+    renderTable();
+  }
+
+  function renderStats(){
+    document.getElementById('statTotal').innerText = bookings.length;
+    document.getElementById('statNew').innerText = bookings.filter(b=>b.status==='new').length;
+    document.getElementById('statContacted').innerText = bookings.filter(b=>b.status==='contacted').length;
+    document.getElementById('statScheduled').innerText = bookings.filter(b=>b.status==='scheduled').length;
+    document.getElementById('statCompleted').innerText = bookings.filter(b=>b.status==='completed').length;
+  }
+
+  function formatDate(iso){
+    try{
+      const d = new Date(iso);
+      return d.toLocaleDateString(undefined, { day:'numeric', month:'short' }) + ' · ' +
+             d.toLocaleTimeString(undefined, { hour:'2-digit', minute:'2-digit' });
+    }catch(e){ return iso; }
+  }
+
+  function digitsOnly(phone){ return (phone || '').replace(/\D/g, ''); }
+
+  function renderTable(){
+    let rows = bookings;
+    if(activeStatus !== 'all') rows = rows.filter(b => b.status === activeStatus);
+    if(searchTerm){
+      rows = rows.filter(b =>
+        (b.name||'').toLowerCase().includes(searchTerm) ||
+        (b.phone||'').toLowerCase().includes(searchTerm) ||
+        (b.area||'').toLowerCase().includes(searchTerm)
+      );
+    }
+
+    bookingsBody.innerHTML = '';
+
+    if(rows.length === 0){
+      emptyState.classList.remove('hidden');
+      return;
+    }
+    emptyState.classList.add('hidden');
+
+    rows.forEach(b=>{
+      const tr = document.createElement('tr');
+
+      tr.innerHTML = `
+        <td>${formatDate(b.createdAt)}</td>
+        <td>
+          <div class="cell-name">${escapeHtml(b.name)}</div>
+          <div class="cell-sub">${escapeHtml(b.phone)}</div>
+        </td>
+        <td>${escapeHtml(b.service)}</td>
+        <td>${escapeHtml(b.area)}</td>
+        <td>${escapeHtml(b.date)}</td>
+        <td><span class="badge-source">${escapeHtml(b.source || 'website')}</span></td>
+        <td><span class="badge badge-${b.status}">${escapeHtml(b.status)}</span></td>
+        <td></td>
+      `;
+
+      const actionsTd = tr.lastElementChild;
+      const wrap = document.createElement('div');
+      wrap.className = 'row-actions';
+
+      const select = document.createElement('select');
+      select.className = 'status-select';
+      ['new','contacted','scheduled','completed','cancelled'].forEach(s=>{
+        const opt = document.createElement('option');
+        opt.value = s; opt.innerText = s.charAt(0).toUpperCase() + s.slice(1);
+        if(s === b.status) opt.selected = true;
+        select.appendChild(opt);
+      });
+      select.onchange = ()=> updateStatus(b.id, select.value);
+
+      const waBtn = document.createElement('button');
+      waBtn.className = 'wa-link-btn';
+      waBtn.innerText = 'WhatsApp';
+      waBtn.onclick = ()=> window.open(`https://wa.me/${digitsOnly(b.phone)}`, '_blank');
+
+      wrap.appendChild(select);
+      wrap.appendChild(waBtn);
+      actionsTd.appendChild(wrap);
+
+      bookingsBody.appendChild(tr);
+    });
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.innerText = str == null ? '' : String(str);
+    return div.innerHTML;
+  }
+
+  async function updateStatus(id, status){
+    const prev = bookings.find(b=>b.id === id);
+    const prevStatus = prev ? prev.status : null;
+    if(prev) prev.status = status;
+    renderStats();
+
+    try{
+      const res = await fetch(`${workerUrl}/bookings?id=${encodeURIComponent(id)}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey },
+        body: JSON.stringify({ status })
+      });
+      if(!res.ok) throw new Error('status ' + res.status);
+    }catch(err){
+      if(prev) prev.status = prevStatus;
+      renderAll();
+      errorBanner.innerText = "Couldn't update that request's status. Please try again.";
+      errorBanner.classList.remove('hidden');
+    }
+  }
+</script>
+</body>
+</html>
