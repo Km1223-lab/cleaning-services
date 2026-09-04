@@ -823,7 +823,7 @@
   // "https://km-cleaning-chat-proxy.yourname.workers.dev"
   // Used for both the AI chat (WORKER_URL + "/chat") and saving booking
   // requests for the admin dashboard (WORKER_URL + "/bookings").
-  const WORKER_URL = "https://km-cleaning-chat-proxy.YOUR-SUBDOMAIN.workers.dev";
+  const WORKER_URL = ""; // same-origin via nginx proxy in dev; set to your Cloudflare Worker URL in production
 
   const SYSTEM_PROMPT = `You are the bilingual virtual assistant for KM Cleaning Services, a cleaning agency based in Nairobi, Kenya.
 
