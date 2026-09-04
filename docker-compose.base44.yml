@@ -1,0 +1,18 @@
+# Base44 dev environment for KM Cleaning Services (static site)
+# Serves the cloned source via nginx on host port 3000.
+# The chat/booking backend (km-chat-worker.js) is a Cloudflare Worker deployed
+# separately — see README.txt. This compose only serves the static frontend.
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/share/nginx/html:ro
+      - ./nginx.base44.conf:/etc/nginx/conf.d/default.conf:ro
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/km-cleaning-services.html"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
