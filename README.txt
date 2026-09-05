@@ -7,6 +7,8 @@ WHAT'S IN HERE
 2. km-chat-worker.js           -> Cloudflare Worker code (paste into Cloudflare, not your web host)
 3. admin.html                  -> Staff dashboard for viewing/managing booking requests
 4. manifest.json + service-worker.js + icons/  -> Makes the site installable as an app (see PART C)
+5. privacy-policy.html + terms-of-service.html -> Linked in the site's footer; upload alongside
+   km-cleaning-services.html so the footer links work
 
 SETUP ORDER
 -----------

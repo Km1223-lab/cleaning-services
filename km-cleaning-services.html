@@ -388,6 +388,50 @@
   .chat-send-btn:hover{ background:var(--deep2); }
   .chat-done-actions{ padding:12px 16px 16px; display:flex; flex-direction:column; gap:8px; border-top:1px solid var(--line); }
   .chat-done-actions .btn{ width:100%; padding:12px 16px; font-size:13.5px; }
+
+  /* ===== Pricing ===== */
+  .pricing-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; align-items:stretch; }
+  @media (max-width:860px){ .pricing-grid{ grid-template-columns:1fr; max-width:440px; margin:0 auto; } }
+  .price-card{
+    background:var(--white); border:1px solid var(--line); border-radius:8px; padding:36px 30px;
+    display:flex; flex-direction:column; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .price-card:hover{ transform:translateY(-4px); box-shadow:0 14px 40px rgba(11,61,46,0.12); }
+  .price-card.featured{
+    background:var(--deep); color:var(--white); border-color:var(--deep);
+    position:relative; transform:scale(1.03);
+  }
+  .price-card.featured:hover{ transform:scale(1.03) translateY(-4px); box-shadow:0 20px 50px rgba(11,61,46,0.25); }
+  .price-card.featured .price-name,
+  .price-card.featured .price-desc,
+  .price-card.featured .price-feat li{ color:rgba(255,255,255,0.72); }
+  .price-card.featured .price-amount{ color:var(--gold-soft); }
+  .price-card.featured .price-feat li svg path{ stroke:var(--gold-soft); }
+  .price-card.featured .price-feat li{ border-color:rgba(255,255,255,0.1); }
+  .price-badge{
+    position:absolute; top:-13px; left:50%; transform:translateX(-50%);
+    background:var(--gold); color:var(--deep); font-family:'IBM Plex Mono',monospace;
+    font-size:11px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+    padding:5px 16px; border-radius:14px; white-space:nowrap;
+  }
+  .price-name{ font-family:'Space Grotesk',sans-serif; font-size:20px; font-weight:600; color:var(--deep); margin-bottom:6px; }
+  .price-desc{ font-size:13.5px; color:var(--ink-soft); margin-bottom:24px; line-height:1.45; }
+  .price-amount{ display:flex; align-items:baseline; gap:4px; margin-bottom:26px; }
+  .price-from{ font-size:13px; color:var(--ink-soft); font-weight:500; }
+  .price-card.featured .price-from{ color:rgba(255,255,255,0.5); }
+  .price-num{ font-family:'Space Grotesk',sans-serif; font-size:34px; font-weight:700; color:var(--deep); }
+  .price-unit{ font-size:14px; color:var(--ink-soft); }
+  .price-card.featured .price-unit{ color:rgba(255,255,255,0.5); }
+  .price-feat{ flex:1; margin-bottom:28px; }
+  .price-feat li{
+    display:flex; align-items:flex-start; gap:10px; padding:11px 0;
+    border-bottom:1px solid var(--line); font-size:14px; color:var(--ink-soft); line-height:1.4;
+  }
+  .price-feat li:last-child{ border-bottom:none; }
+  .price-feat li svg{ width:16px; height:16px; flex-shrink:0; margin-top:2px; }
+  .price-feat li svg path{ stroke:var(--deep2); stroke-width:2.4; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  .price-cta{ width:100%; }
+  .price-note{ text-align:center; font-size:13px; color:var(--ink-soft); margin-top:28px; }
 </style>
 </head>
 <body>
@@ -403,6 +447,7 @@
         <a href="#services">Services</a>
         <a href="#gallery">Gallery</a>
         <a href="#process">How it works</a>
+        <a href="#pricing">Pricing</a>
         <a href="#areas">Areas we serve</a>
         <a href="#testimonials">Reviews</a>
       </div>
@@ -575,6 +620,77 @@
   </div>
 </section>
 
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Pricing</span>
+      <h2>Transparent packages, no hidden fees</h2>
+      <p>Every space is different, so these are starting points &mdash; we give you a fixed, itemised quote after a quick assessment. No surprise charges, ever.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <div class="price-card">
+        <div class="price-name">Essential Clean</div>
+        <p class="price-desc">Routine maintenance cleaning for homes and apartments that need a reliable, regular touch.</p>
+        <div class="price-amount">
+          <span class="price-from">from</span>
+          <span class="price-num">KSh 3,000</span>
+          <span class="price-unit">/ visit</span>
+        </div>
+        <ul class="price-feat">
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Dusting &amp; wiping all surfaces</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Floors swept &amp; mopped</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Kitchen &amp; bathroom sanitising</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Bin emptying &amp; tidying</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> 1&ndash;2 person crew, 2&ndash;3 hrs</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost price-cta">Get a quote</a>
+      </div>
+
+      <div class="price-card featured">
+        <span class="price-badge">Most popular</span>
+        <div class="price-name" style="color:var(--gold-soft);">Deep Clean</div>
+        <p class="price-desc">A thorough top-to-bottom reset &mdash; ideal for seasonal cleaning, move-ins, or spaces that need real attention.</p>
+        <div class="price-amount">
+          <span class="price-from">from</span>
+          <span class="price-num">KSh 8,000</span>
+          <span class="price-unit">/ visit</span>
+        </div>
+        <ul class="price-feat">
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Everything in Essential, plus:</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Behind &amp; under appliances</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Inside cabinets &amp; cupboards</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Skirting boards &amp; light fittings</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Carpet &amp; upholstery spot treatment</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> 2&ndash;3 person crew, 4&ndash;6 hrs</li>
+        </ul>
+        <a href="#contact" class="btn btn-gold price-cta">Get a quote</a>
+      </div>
+
+      <div class="price-card">
+        <div class="price-name">Complete Care</div>
+        <p class="price-desc">Post-construction, end-of-tenancy and specialised cleaning for spaces that need a full professional overhaul.</p>
+        <div class="price-amount">
+          <span class="price-from">from</span>
+          <span class="price-num">KSh 15,000</span>
+          <span class="price-unit">/ visit</span>
+        </div>
+        <ul class="price-feat">
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Everything in Deep Clean, plus:</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Construction dust &amp; debris removal</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Paint splatter &amp; sticker residue</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Window &amp; exterior cleaning</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> Fumigation option available</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg> 3+ person crew, full day</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost price-cta">Get a quote</a>
+      </div>
+
+    </div>
+    <p class="price-note">Prices vary by property size, condition and location. Contact us for a free, fixed quote &mdash; commercial and recurring contracts get discounted rates.</p>
+  </div>
+</section>
+
 <section id="areas">
   <div class="wrap areas-wrap">
     <div>
@@ -639,11 +755,11 @@
 
       <div class="info-row">
         <div class="ico">📞</div>
-        <div><h4>Call or WhatsApp</h4><p>+254 7XX XXX XXX</p></div>
+        <div><h4>Call or WhatsApp</h4><p>+254 748 166 300</p></div>
       </div>
       <div class="info-row">
         <div class="ico">✉️</div>
-        <div><h4>Email</h4><p>info@kmcleaningservices.co.ke</p></div>
+        <div><h4>Email</h4><p>info@kmcleaningservice.uk</p></div>
       </div>
       <div class="info-row">
         <div class="ico">📍</div>
@@ -715,6 +831,7 @@
           <li><a href="#services">Services</a></li>
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#process">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
           <li><a href="#areas">Areas we serve</a></li>
           <li><a href="#testimonials">Reviews</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -723,15 +840,19 @@
       <div>
         <h4>Contact</h4>
         <ul>
-          <li>+254 7XX XXX XXX</li>
-          <li>info@kmcleaningservices.co.ke</li>
+          <li>+254 748 166 300</li>
+          <li>info@kmcleaningservice.uk</li>
           <li>Nairobi, Kenya</li>
         </ul>
       </div>
     </div>
     <div class="foot-bottom">
       <span>© 2026 KM Cleaning Services. All rights reserved.</span>
-      <span>Licensed &amp; insured cleaning agency, Nairobi, Kenya</span>
+      <span style="display:flex; gap:16px; align-items:center;">
+        <a href="privacy-policy.html" style="color:rgba(255,255,255,0.7);">Privacy Policy</a>
+        <a href="terms-of-service.html" style="color:rgba(255,255,255,0.7);">Terms of Service</a>
+        <span>Licensed &amp; insured cleaning agency, Nairobi, Kenya</span>
+      </span>
     </div>
   </div>
 </footer>
@@ -774,7 +895,7 @@
   });
 
   // ---- Quote form -> WhatsApp ----
-  const BUSINESS_PHONE = "254700000000"; // TODO: replace with KM Cleaning Services' real WhatsApp number, format 2547XXXXXXXX
+  const BUSINESS_PHONE = "254748166300";
 
   async function postBooking(fields, source){
     try{
@@ -819,7 +940,7 @@
   // "https://km-cleaning-chat-proxy.yourname.workers.dev"
   // Used for both the AI chat (WORKER_URL + "/chat") and saving booking
   // requests for the admin dashboard (WORKER_URL + "/bookings").
-  const WORKER_URL = "https://km-cleaning-chat-proxy.YOUR-SUBDOMAIN.workers.dev";
+  const WORKER_URL = ""; // same-origin via nginx proxy in dev; set to your Cloudflare Worker URL in production
 
   const SYSTEM_PROMPT = `You are the bilingual virtual assistant for KM Cleaning Services, a cleaning agency based in Nairobi, Kenya.
 

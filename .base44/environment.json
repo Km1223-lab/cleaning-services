@@ -1,0 +1,12 @@
+{
+  "previewPort": 3000,
+  "healthPath": "/",
+  "startCommand": "docker compose -f docker-compose.base44.yml up -d",
+  "secrets": [
+    {
+      "name": "ANTHROPIC_API_KEY",
+      "description": "Anthropic API key (from console.anthropic.com) used by the chat proxy to call Claude. Only needed if you run the chat worker locally instead of on Cloudflare.",
+      "requiredAtBoot": false
+    }
+  ]
+}
