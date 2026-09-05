@@ -1,0 +1,35 @@
+[
+  {
+    "id": "f40aff78-5425-4c2f-ad7a-99a936b1bbb8",
+    "service": "Residential cleaning",
+    "area": "Kilimani",
+    "date": "2026-09-08",
+    "name": "Jane Wanjiru",
+    "phone": "0712345678",
+    "source": "sample",
+    "status": "new",
+    "createdAt": "2026-09-05T15:36:55.372Z"
+  },
+  {
+    "id": "e81b0cd0-a193-4cb8-9a6b-6d698c9c0116",
+    "service": "Office cleaning",
+    "area": "Westlands",
+    "date": "2026-09-10",
+    "name": "Brian Kamau",
+    "phone": "0723456789",
+    "source": "sample",
+    "status": "new",
+    "createdAt": "2026-09-05T15:36:55.378Z"
+  },
+  {
+    "id": "3e214fe7-bd06-4044-8276-0e48fef6a700",
+    "service": "Post-construction cleaning",
+    "area": "Ruaka",
+    "date": "this Saturday",
+    "name": "Amina Hassan",
+    "phone": "0734567890",
+    "source": "sample",
+    "status": "new",
+    "createdAt": "2026-09-05T15:36:55.385Z"
+  }
+]

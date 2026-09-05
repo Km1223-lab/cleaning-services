@@ -137,6 +137,83 @@
     background:rgba(178,58,58,0.08); border:1px solid rgba(178,58,58,0.25); color:var(--red);
     padding:12px 16px; border-radius:6px; margin-bottom:18px; font-size:13.5px;
   }
+
+  /* ===== View toggle ===== */
+  .view-toggle{ display:flex; gap:6px; }
+  .view-btn{
+    padding:9px 16px; border-radius:20px; border:1px solid var(--line); background:var(--white);
+    font-size:13px; font-weight:500; cursor:pointer; color:var(--ink-soft); display:flex; align-items:center; gap:6px;
+  }
+  .view-btn.active{ background:var(--deep); color:var(--gold-soft); border-color:var(--deep); }
+
+  /* ===== Calendar ===== */
+  .calendar-view{ background:var(--white); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .calendar-header{
+    display:flex; align-items:center; justify-content:space-between; padding:18px 20px;
+    border-bottom:1px solid var(--line); background:var(--bg-alt);
+  }
+  .cal-month-label{ font-family:'Space Grotesk',sans-serif; font-size:18px; font-weight:600; color:var(--deep); }
+  .cal-nav{ display:flex; gap:8px; }
+  .cal-nav-btn{
+    background:var(--white); border:1px solid var(--line); border-radius:4px; padding:7px 12px;
+    font-size:14px; cursor:pointer; color:var(--deep2);
+  }
+  .cal-nav-btn:hover{ background:var(--bg-alt); }
+  .cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); }
+  .cal-day-name{
+    text-align:center; padding:10px 4px; font-size:11px; font-weight:600; text-transform:uppercase;
+    letter-spacing:0.05em; color:var(--ink-soft); border-bottom:1px solid var(--line);
+  }
+  .cal-day{
+    min-height:88px; padding:6px; border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+    cursor:pointer; transition:background .15s ease;
+  }
+  .cal-day:nth-child(7n){ border-right:none; }
+  .cal-day:hover{ background:var(--bg-alt); }
+  .cal-day.other-month{ color:rgba(76,90,82,0.3); }
+  .cal-day.other-month .cal-day-num{ opacity:0.3; }
+  .cal-day.today{ background:rgba(201,162,39,0.08); }
+  .cal-day.today .cal-day-num{ color:var(--deep); font-weight:700; }
+  .cal-day.selected{ background:rgba(11,61,46,0.07); box-shadow:inset 0 0 0 2px var(--deep); }
+  .cal-day-num{ font-size:12px; font-weight:500; color:var(--ink-soft); margin-bottom:4px; }
+  .cal-booking{
+    display:block; font-size:10.5px; padding:3px 6px; border-radius:3px; margin-bottom:2px;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; cursor:pointer;
+  }
+  .cal-booking.s-new{ background:rgba(201,162,39,0.2); color:#8a6d1a; }
+  .cal-booking.s-contacted{ background:rgba(43,95,138,0.15); color:var(--blue); }
+  .cal-booking.s-scheduled{ background:rgba(11,61,46,0.15); color:var(--deep); }
+  .cal-booking.s-completed{ background:rgba(76,90,82,0.15); color:var(--ink-soft); }
+  .cal-booking.s-cancelled{ background:rgba(178,58,58,0.12); color:var(--red); }
+  .cal-booking-more{ font-size:10px; color:var(--ink-soft); padding:2px 6px; }
+
+  .cal-detail-panel{
+    border-top:1px solid var(--line); padding:20px; background:var(--bg-alt);
+  }
+  .cal-detail-title{ font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:600; margin-bottom:14px; color:var(--deep); }
+  .cal-detail-list{ display:flex; flex-direction:column; gap:10px; }
+  .cal-detail-item{
+    background:var(--white); border:1px solid var(--line); border-radius:6px; padding:14px 16px;
+    display:flex; justify-content:space-between; align-items:flex-start; gap:12px;
+  }
+  .cal-detail-item-info{ flex:1; }
+  .cal-detail-item-name{ font-weight:600; font-size:14px; }
+  .cal-detail-item-meta{ color:var(--ink-soft); font-size:12.5px; margin-top:3px; }
+  .cal-unscheduled{ padding:16px 20px; border-top:1px solid var(--line); }
+  .cal-unscheduled-title{ font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft); margin-bottom:10px; }
+  .cal-unscheduled-list{ display:flex; flex-wrap:wrap; gap:8px; }
+  .cal-unscheduled-chip{
+    background:var(--bg-alt); border:1px solid var(--line); border-radius:6px; padding:6px 12px;
+    font-size:12px; color:var(--ink-soft); cursor:pointer;
+  }
+  .cal-unscheduled-chip:hover{ background:var(--white); border-color:var(--deep); }
+
+  @media (max-width:640px){
+    .cal-day{ min-height:60px; padding:4px; }
+    .cal-booking{ font-size:9.5px; padding:2px 4px; }
+    .cal-day-num{ font-size:11px; }
+    .cal-day-name{ font-size:10px; padding:8px 2px; }
+  }
 </style>
 </head>
 <body>
@@ -151,14 +228,11 @@
     <p class="sub">Sign in to view and manage incoming booking requests.</p>
     <div id="loginError" class="login-error hidden"></div>
 
-    <label for="workerUrlInput">Worker URL</label>
-    <input id="workerUrlInput" type="text" placeholder="https://km-cleaning-chat-proxy.yourname.workers.dev">
-
     <label for="adminKeyInput">Admin key</label>
     <input id="adminKeyInput" type="password" placeholder="Your admin key">
 
     <button id="loginBtn" class="btn btn-gold">Sign in</button>
-    <p class="login-note">This key is only kept in this browser tab's memory — it is not saved anywhere, so you'll need to sign in again if you refresh the page. Set the same value as the <code>ADMIN_KEY</code> secret on your Cloudflare Worker.</p>
+    <p class="login-note">This key is only kept in this browser tab's memory — it is not saved anywhere, so you'll need to sign in again if you refresh the page. The dev default is <code>km-admin-dev</code>.</p>
   </div>
 </div>
 
@@ -195,9 +269,13 @@
         <button class="tab-btn" data-status="cancelled">Cancelled</button>
       </div>
       <input id="searchInput" class="search-input" type="text" placeholder="Search by name, phone or area...">
+      <div class="view-toggle">
+        <button class="view-btn active" data-view="table" id="viewTableBtn">📋 Table</button>
+        <button class="view-btn" data-view="calendar" id="viewCalendarBtn">📅 Calendar</button>
+      </div>
     </div>
 
-    <div class="table-wrap">
+    <div class="table-wrap" id="tableView">
       <table>
         <thead>
           <tr>
@@ -218,6 +296,19 @@
         <h3>No requests here yet</h3>
         <p>New bookings from your website's quote form and AI assistant will show up automatically.</p>
       </div>
+    </div>
+
+    <div class="calendar-view hidden" id="calendarView">
+      <div class="calendar-header">
+        <button class="cal-nav-btn" id="calPrevBtn">‹</button>
+        <div class="cal-month-label" id="calMonthLabel"></div>
+        <div class="cal-nav">
+          <button class="cal-nav-btn" id="calTodayBtn">Today</button>
+          <button class="cal-nav-btn" id="calNextBtn">›</button>
+        </div>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div id="calDetailPanel"></div>
     </div>
   </div>
 </div>
@@ -243,10 +334,9 @@
   }
 
   async function attemptLogin(){
-    const urlInput = document.getElementById('workerUrlInput').value.trim().replace(/\/+$/, '');
     const keyInput = document.getElementById('adminKeyInput').value.trim();
-    if(!urlInput || !keyInput){
-      showLoginError('Please fill in both the Worker URL and the admin key.');
+    if(!keyInput){
+      showLoginError('Please enter the admin key.');
       return;
     }
     const btn = document.getElementById('loginBtn');
@@ -255,26 +345,25 @@
     loginError.classList.add('hidden');
 
     try{
-      const res = await fetch(`${urlInput}/bookings`, { headers: { 'x-admin-key': keyInput } });
+      const res = await fetch(`${workerUrl}/bookings`, { headers: { 'x-admin-key': keyInput } });
       if(res.status === 401){
-        showLoginError('That admin key was rejected. Double-check it matches the ADMIN_KEY secret on your Worker.');
+        showLoginError('That admin key was rejected. The dev default is km-admin-dev.');
         btn.disabled = false; btn.innerText = 'Sign in';
         return;
       }
       if(!res.ok){
-        showLoginError(`The Worker responded with an error (status ${res.status}). Check the Worker URL and that it's deployed.`);
+        showLoginError(`Server responded with an error (status ${res.status}).`);
         btn.disabled = false; btn.innerText = 'Sign in';
         return;
       }
       const data = await res.json();
-      workerUrl = urlInput;
       adminKey = keyInput;
       bookings = data.bookings || [];
       loginScreen.classList.add('hidden');
       dashboard.classList.remove('hidden');
       renderAll();
     }catch(err){
-      showLoginError("Couldn't reach that Worker URL. Check it's correct, deployed, and that this page's origin is in the Worker's ALLOWED_ORIGINS list.");
+      showLoginError("Couldn't reach the server. Make sure the chat backend is running.");
       btn.disabled = false; btn.innerText = 'Sign in';
     }
   }
@@ -283,7 +372,7 @@
   document.getElementById('adminKeyInput').addEventListener('keydown', e=>{ if(e.key === 'Enter') attemptLogin(); });
 
   document.getElementById('logoutBtn').onclick = ()=>{
-    workerUrl = ""; adminKey = ""; bookings = [];
+    adminKey = ""; bookings = [];
     dashboard.classList.add('hidden');
     loginScreen.classList.remove('hidden');
     document.getElementById('adminKeyInput').value = '';
@@ -325,6 +414,7 @@
   function renderAll(){
     renderStats();
     renderTable();
+    renderCalendar();
   }
 
   function renderStats(){
@@ -434,6 +524,299 @@
       errorBanner.classList.remove('hidden');
     }
   }
+
+  // ===== View toggle =====
+  let currentView = 'table';
+  const tableView = document.getElementById('tableView');
+  const calendarView = document.getElementById('calendarView');
+
+  document.getElementById('viewTableBtn').onclick = ()=> switchView('table');
+  document.getElementById('viewCalendarBtn').onclick = ()=> switchView('calendar');
+
+  function switchView(view){
+    currentView = view;
+    document.querySelectorAll('.view-btn').forEach(b=>b.classList.toggle('active', b.dataset.view === view));
+    tableView.classList.toggle('hidden', view !== 'table');
+    calendarView.classList.toggle('hidden', view !== 'calendar');
+    if(view === 'calendar') renderCalendar();
+  }
+
+  // ===== Calendar =====
+  let calMonth = new Date();
+  calMonth.setDate(1);
+  let calSelectedDate = null;
+
+  const CAL_DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const CAL_MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  function parseBookingDate(dateStr){
+    if(!dateStr) return null;
+    const s = dateStr.trim().toLowerCase();
+    const now = new Date();
+
+    // ISO: 2026-09-10
+    let m = s.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if(m) return new Date(+m[1], +m[2]-1, +m[3]);
+
+    // DD/MM/YYYY or DD-MM-YYYY
+    m = s.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+    if(m) return new Date(+m[3], +m[2]-1, +m[1]);
+
+    // "this Saturday", "next Monday"
+    const dayNames = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+    m = s.match(/(this|next)\s+(sunday|monday|tuesday|wednesday|thursday|friday|saturday)/);
+    if(m){
+      const target = dayNames.indexOf(m[2]);
+      const current = now.getDay();
+      let diff = target - current;
+      if(m[1] === 'next') diff += 7;
+      if(diff <= 0) diff += 7;
+      const d = new Date(now);
+      d.setDate(d.getDate() + diff);
+      d.setHours(0,0,0,0);
+      return d;
+    }
+
+    // "today", "tomorrow"
+    if(s === 'today' || s.includes('today')) return new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    if(s === 'tomorrow' || s.includes('tomorrow')){
+      const d = new Date(now); d.setDate(d.getDate()+1); d.setHours(0,0,0,0); return d;
+    }
+
+    // Try native parse for formats like "Sept 15", "15 September 2026"
+    const parsed = new Date(dateStr);
+    if(!isNaN(parsed.getTime())){
+      parsed.setHours(0,0,0,0);
+      return parsed;
+    }
+    return null;
+  }
+
+  function dateKey(d){
+    return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  }
+
+  function isSameDay(a, b){
+    return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  }
+
+  function getBookingsByDate(){
+    const map = {};
+    const unscheduled = [];
+    bookings.forEach(b=>{
+      const d = parseBookingDate(b.date);
+      if(d){
+        const key = dateKey(d);
+        if(!map[key]) map[key] = [];
+        map[key].push(b);
+      } else {
+        unscheduled.push(b);
+      }
+    });
+    return { map, unscheduled };
+  }
+
+  function renderCalendar(){
+    const grid = document.getElementById('calGrid');
+    const label = document.getElementById('calMonthLabel');
+    const detailPanel = document.getElementById('calDetailPanel');
+    grid.innerHTML = '';
+
+    label.innerText = `${CAL_MONTH_NAMES[calMonth.getMonth()]} ${calMonth.getFullYear()}`;
+
+    // Day name headers
+    CAL_DAY_NAMES.forEach(name=>{
+      const el = document.createElement('div');
+      el.className = 'cal-day-name';
+      el.innerText = name;
+      grid.appendChild(el);
+    });
+
+    const year = calMonth.getFullYear();
+    const month = calMonth.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const startDayOfWeek = firstDay.getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInPrevMonth = new Date(year, month, 0).getDate();
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const { map } = getBookingsByDate();
+
+    // Previous month's trailing days
+    for(let i = startDayOfWeek - 1; i >= 0; i--){
+      const dayNum = daysInPrevMonth - i;
+      const cellDate = new Date(year, month - 1, dayNum);
+      grid.appendChild(makeCalDay(cellDate, dayNum, true, map, today));
+    }
+
+    // Current month days
+    for(let d = 1; d <= daysInMonth; d++){
+      const cellDate = new Date(year, month, d);
+      grid.appendChild(makeCalDay(cellDate, d, false, map, today));
+    }
+
+    // Next month's leading days to fill the grid
+    const totalCells = grid.querySelectorAll('.cal-day').length + CAL_DAY_NAMES.length; // wait, this is wrong
+    // Actually: count only .cal-day elements (not day-name headers)
+    const dayCells = grid.querySelectorAll('.cal-day');
+    const remaining = (7 - (dayCells.length % 7)) % 7;
+    for(let d = 1; d <= remaining; d++){
+      const cellDate = new Date(year, month + 1, d);
+      grid.appendChild(makeCalDay(cellDate, d, true, map, today));
+    }
+
+    renderCalDetail(detailPanel, map, today);
+  }
+
+  function makeCalDay(cellDate, dayNum, isOtherMonth, map, today){
+    const cell = document.createElement('div');
+    cell.className = 'cal-day';
+    if(isOtherMonth) cell.classList.add('other-month');
+    if(isSameDay(cellDate, today)) cell.classList.add('today');
+    if(calSelectedDate && isSameDay(cellDate, calSelectedDate)) cell.classList.add('selected');
+
+    const numEl = document.createElement('div');
+    numEl.className = 'cal-day-num';
+    numEl.innerText = dayNum;
+    cell.appendChild(numEl);
+
+    const key = dateKey(cellDate);
+    const dayBookings = map[key] || [];
+    const visible = dayBookings.slice(0, 3);
+    visible.forEach(b=>{
+      const chip = document.createElement('span');
+      chip.className = `cal-booking s-${b.status}`;
+      chip.innerText = b.name || b.service;
+      chip.title = `${b.name} — ${b.service} (${b.status})`;
+      cell.appendChild(chip);
+    });
+    if(dayBookings.length > 3){
+      const more = document.createElement('span');
+      more.className = 'cal-booking-more';
+      more.innerText = `+${dayBookings.length - 3} more`;
+      cell.appendChild(more);
+    }
+
+    cell.onclick = ()=>{
+      calSelectedDate = cellDate;
+      renderCalendar();
+    };
+
+    return cell;
+  }
+
+  function renderCalDetail(panel, map, today){
+    panel.innerHTML = '';
+
+    // If a day is selected, show its bookings
+    const selectedKey = calSelectedDate ? dateKey(calSelectedDate) : null;
+    const selectedBookings = selectedKey ? (map[selectedKey] || []) : [];
+
+    if(calSelectedDate){
+      const wrap = document.createElement('div');
+      wrap.className = 'cal-detail-panel';
+      const title = document.createElement('div');
+      title.className = 'cal-detail-title';
+      title.innerText = calSelectedDate.toLocaleDateString(undefined, { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+      wrap.appendChild(title);
+
+      const list = document.createElement('div');
+      list.className = 'cal-detail-list';
+
+      if(selectedBookings.length === 0){
+        const empty = document.createElement('p');
+        empty.style.color = 'var(--ink-soft)';
+        empty.style.fontSize = '13.5px';
+        empty.innerText = 'No appointments on this day.';
+        list.appendChild(empty);
+      } else {
+        selectedBookings.forEach(b=>{
+          list.appendChild(makeDetailItem(b));
+        });
+      }
+      wrap.appendChild(list);
+      panel.appendChild(wrap);
+    } else {
+      // Show today's bookings by default if today has any
+      const todayKey = dateKey(today);
+      const todayBookings = map[todayKey] || [];
+      if(todayBookings.length > 0){
+        const wrap = document.createElement('div');
+        wrap.className = 'cal-detail-panel';
+        const title = document.createElement('div');
+        title.className = 'cal-detail-title';
+        title.innerText = 'Today — ' + today.toLocaleDateString(undefined, { day:'numeric', month:'long' });
+        wrap.appendChild(title);
+        const list = document.createElement('div');
+        list.className = 'cal-detail-list';
+        todayBookings.forEach(b=> list.appendChild(makeDetailItem(b)));
+        wrap.appendChild(list);
+        panel.appendChild(wrap);
+      }
+    }
+
+    // Unscheduled bookings (dates that couldn't be parsed)
+    const { unscheduled } = getBookingsByDate();
+    if(unscheduled.length > 0){
+      const wrap = document.createElement('div');
+      wrap.className = 'cal-unscheduled';
+      const title = document.createElement('div');
+      title.className = 'cal-unscheduled-title';
+      title.innerText = `Unscheduled (${unscheduled.length}) — date not recognized`;
+      wrap.appendChild(title);
+      const list = document.createElement('div');
+      list.className = 'cal-unscheduled-list';
+      unscheduled.forEach(b=>{
+        const chip = document.createElement('div');
+        chip.className = 'cal-unscheduled-chip';
+        chip.innerText = `${b.name} — "${b.date}"`;
+        chip.title = `${b.service} · ${b.area} · ${b.status}`;
+        chip.onclick = ()=>{
+          // Try to select — just scroll up to calendar
+          calendarView.scrollIntoView({ behavior:'smooth' });
+        };
+        list.appendChild(chip);
+      });
+      wrap.appendChild(list);
+      panel.appendChild(wrap);
+    }
+  }
+
+  function makeDetailItem(b){
+    const item = document.createElement('div');
+    item.className = 'cal-detail-item';
+    item.innerHTML = `
+      <div class="cal-detail-item-info">
+        <div class="cal-detail-item-name">${escapeHtml(b.name)} <span class="badge badge-${b.status}" style="margin-left:8px;">${escapeHtml(b.status)}</span></div>
+        <div class="cal-detail-item-meta">${escapeHtml(b.service)} · ${escapeHtml(b.area)} · ${escapeHtml(b.phone)}</div>
+        <div class="cal-detail-item-meta">Preferred: ${escapeHtml(b.date)}</div>
+      </div>
+      <div class="row-actions">
+        <button class="wa-link-btn">WhatsApp</button>
+      </div>
+    `;
+    item.querySelector('.wa-link-btn').onclick = ()=> window.open(`https://wa.me/${digitsOnly(b.phone)}`, '_blank');
+    return item;
+  }
+
+  document.getElementById('calPrevBtn').onclick = ()=>{
+    calMonth.setMonth(calMonth.getMonth() - 1);
+    calSelectedDate = null;
+    renderCalendar();
+  };
+  document.getElementById('calNextBtn').onclick = ()=>{
+    calMonth.setMonth(calMonth.getMonth() + 1);
+    calSelectedDate = null;
+    renderCalendar();
+  };
+  document.getElementById('calTodayBtn').onclick = ()=>{
+    calMonth = new Date();
+    calMonth.setDate(1);
+    calSelectedDate = new Date();
+    calSelectedDate.setHours(0,0,0,0);
+    renderCalendar();
+  };
 </script>
 </body>
 </html>
